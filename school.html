@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МКОУ гимназия г. Вятские Поляны</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7ff; color: #1e2a4a; line-height: 1.6; }
+  a { color: inherit; text-decoration: none; }
+
+  header { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: #fff; padding: 15px 40px; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .logo { font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 40px; height: 40px; background: #fff; color: #1e3a8a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .menu { display: flex; gap: 30px; list-style: none; }
+  .menu a { font-weight: 500; position: relative; padding: 5px 0; transition: 0.3s; }
+  .menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: #fff; transition: width 0.3s; }
+  .menu a:hover::after { width: 100%; }
+
+  .hero { background: linear-gradient(135deg, #1e3a8a, #3b82f6, #60a5fa); background-size: 200% 200%; animation: gradientMove 8s ease infinite; color: #fff; padding: 100px 40px; text-align: center; }
+  @keyframes gradientMove { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+  .hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 800; text-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+  .hero p { font-size: 20px; opacity: 0.9; margin-bottom: 30px; }
+  .hero-btn { background: #fff; color: #1e3a8a; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 16px; display: inline-block; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+  .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+
+  section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-title { text-align: center; font-size: 36px; color: #1e3a8a; margin-bottom: 15px; font-weight: 800; }
+  .section-sub { text-align: center; color: #64748b; margin-bottom: 50px; font-size: 17px; }
+
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+  .news-card { background: #fff; border-radius: 18px; padding: 25px; box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1); transition: 0.3s; border-top: 4px solid #3b82f6; opacity: 0; transform: translateY(30px); }
+  .news-card.visible { opacity: 1; transform: translateY(0); transition: all 0.7s ease; }
+  .news-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2); }
+  .news-date { color: #3b82f6; font-size: 13px; font-weight: 700; margin-bottom: 10px; letter-spacing: 1px; }
+  .news-card h3 { color: #1e3a8a; margin-bottom: 12px; font-size: 20px; }
+  .news-card p { color: #64748b; font-size: 15px; }
+
+  .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+  .teacher { background: #fff; border-radius: 18px; padding: 30px 20px; text-align: center; box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1); transition: 0.3s; opacity: 0; transform: translateY(30px); }
+  .teacher.visible { opacity: 1; transform: translateY(0); transition: all 0.7s ease; }
+  .teacher:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2); }
+  .avatar { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #1e3a8a); color: #fff; font-size: 36px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); }
+  .teacher h4 { color: #1e3a8a; font-size: 18px; margin-bottom: 5px; }.teacher p { color: #64748b; font-size: 14px; }
+
+  .schedule-table { width: 100%; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1); }
+  .schedule-table table { width: 100%; border-collapse: collapse; }
+  .schedule-table th { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: #fff; padding: 18px; text-align: left; font-weight: 600; }
+  .schedule-table td { padding: 16px 18px; border-bottom: 1px solid #e5eaf5; color: #475569; }
+  .schedule-table tr:last-child td { border-bottom: none; }
+  .schedule-table tr:hover td { background: #f0f5ff; }
+
+  .contacts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+  .contact-card { background: #fff; padding: 30px; border-radius: 18px; text-align: center; box-shadow: 0 10px 30px rgba(30, 58, 138, 0.1); transition: 0.3s; }
+  .contact-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2); }
+  .contact-icon { font-size: 36px; margin-bottom: 15px; }
+  .contact-card h4 { color: #1e3a8a; margin-bottom: 8px; font-size: 17px; }
+  .contact-card p { color: #64748b; font-size: 15px; }
+
+  footer { background: #0f1e3d; color: #94a3b8; text-align: center; padding: 40px 20px; font-size: 14px; }
+  footer p { margin-bottom: 8px; }
+
+  @media (max-width: 768px) {
+    .menu { display: none; }
+    .hero h1 { font-size: 28px; }
+    .hero p { font-size: 16px; }
+    .section-title { font-size: 24px; }
+    section { padding: 50px 20px; }
+    header { padding: 15px 20px; }
+    .schedule-table th, .schedule-table td { padding: 10px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-icon">🏫</div>
+      <span>МКОУ гимназия</span>
+    </div>
+    <ul class="menu">
+      <li><a href="#home">Главная</a></li>
+      <li><a href="#news">Новости</a></li>
+      <li><a href="#teachers">Учителя</a></li>
+      <li><a href="#schedule">Расписание</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="hero" id="home">
+  <h1>МКОУ гимназия г. Вятские Поляны</h1>
+  <p>«Будущее начинается здесь и сейчас»</p>
+  <a href="#news" class="hero-btn">Узнать больше →</a>
+</div>
+
+<section id="news">
+  <h2 class="section-title">📰 Новости гимназии</h2>
+  <p class="section-sub">Что интересного произошло у нас недавно</p>
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-date">15 ОКТЯБРЯ 2026</div>
+      <h3>Победа на олимпиаде по математике</h3>
+      <p>Наши гимназисты заняли призовые места на городской олимпиаде. Поздравляем победителей и их наставников!</p>
+    </div>
+    <div class="news-card">
+      <div class="news-date">10 ОКТЯБРЯ 2026</div>
+      <h3>Осенний бал для старшеклассников</h3>
+      <p>В актовом зале прошёл традиционный осенний бал. Спасибо всем, кто участвовал в организации!</p>
+    </div>
+    <div class="news-card">
+      <div class="news-date">5 ОКТЯБРЯ 2026</div>
+      <h3>День учителя</h3>
+      <p>Ученики подготовили концерт для любимых педагогов. Спасибо за тёплые слова и поздравления!</p>
+    </div>
+  </div>
+</section>
+
+<section id="teachers">
+  <h2 class="section-title">👨‍🏫 Наши учителя</h2>
+  <p class="section-sub">Люди, которые ведут нас к знаниям</p>
+  <div class="teachers-grid">
+    <div class="teacher">
+      <div class="avatar">СЛ</div>
+      <h4>Семибратова Людмила</h4>
+      <p>Директор гимназии</p>
+    </div>
+    <div class="teacher">
+      <div class="avatar">ГГ</div>
+      <h4>Головичер Галина</h4>
+      <p>Учитель информатики</p>
+    </div>
+    <div class="teacher">
+      <div class="avatar">СЕ</div>
+      <h4>Седавных Елена</h4>
+      <p>Зам. директора по НМР</p>
+    </div>
+    <div class="teacher">
+      <div class="avatar">КА</div>
+      <h4>Костюнина Алёна</h4>
+      <p>Зам. директора по УВР</p>
+    </div>
+  </div>
+</section>
+
+<section id="schedule">
+  <h2 class="section-title">📅 Расписание звонков</h2><p class="section-sub">Уроки начинаются ровно по звонку</p>
+  <div class="schedule-table">
+    <table>
+      <tr>
+        <th>Урок</th>
+        <th>Начало</th>
+        <th>Конец</th>
+      </tr>
+      <tr><td>1 урок</td><td>08:00</td><td>08:40</td></tr>
+      <tr><td>2 урок</td><td>08:50</td><td>09:30</td></tr>
+      <tr><td>3 урок</td><td>09:50</td><td>10:30</td></tr>
+      <tr><td>4 урок</td><td>10:50</td><td>11:30</td></tr>
+      <tr><td>5 урок</td><td>11:40</td><td>12:20</td></tr>
+      <tr><td>6 урок</td><td>12:30</td><td>13:10</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="contacts">
+  <h2 class="section-title">📞 Контакты</h2>
+  <p class="section-sub">Свяжитесь с нами любым удобным способом</p>
+  <div class="contacts">
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <h4>Адрес</h4>
+      <p>г. Вятские Поляны, ул. Гагарина, д. 17</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <h4>Телефон</h4>
+      <p>+7 (83334) 6-29-29</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <h4>Email</h4>
+      <p>vpschool3@mail.ru</p>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🕐</div>
+      <h4>Часы работы</h4>
+      <p>Пн–Пт: 8:00 – 19:00</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>МКОУ гимназия г. Вятские Поляны</strong> © 2026</p>
+  <p>Основана в 1964 году. С 2008 года — гимназия.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.news-card, .teacher').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.menu a, .hero-btn').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
